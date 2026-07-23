@@ -10,8 +10,11 @@ function updateClock() {
     const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
     const dayName = days[now.getDay()];
 
-    const dateString = `${year}-${month}-${day} ${dayName}`;
-    document.getElementById('date').textContent = dateString;
+    // إرسال التاريخ فقط إلى مكانه
+document.getElementById('date').textContent = `${year}-${month}-${day}`;
+
+// إرسال اسم اليوم فقط إلى مكانه الجديد في الأعلى
+document.getElementById('day').textContent = dayName;
 
     // تجهيز الوقت
     const hours = String(now.getHours()).padStart(2, '0');
