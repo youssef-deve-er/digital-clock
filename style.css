@@ -1,66 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;800&family=Space+Mono:wght@700&display=swap');
+
+@property --angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Cinzel', 'Courier New', monospace;
 }
 
 body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background: radial-gradient(circle at center, #1a0b2e 0%, #05020a 100%);
+    min-height: 100vh;
+    background-color: #030305;
+    background-image: 
+        radial-gradient(circle at 15% 50%, rgba(76, 29, 149, 0.15), transparent 40%),
+        radial-gradient(circle at 85% 30%, rgba(37, 99, 235, 0.15), transparent 40%);
+    font-family: 'Outfit', sans-serif;
     overflow: hidden;
 }
 
-/* حاوية الساعة بتصميم جوهرة سحرية عائمة مطابقة للحاسبة والطقس */
+/* الحاوية: حجم مناسب للمحتوى مع خلفية صلبة تمنع تسرب الضوء للداخل */
 .clock-container {
-    background: rgba(30, 15, 50, 0.4);
-    backdrop-filter: blur(25px);
-    border: 2px solid rgba(168, 85, 247, 0.3);
-    width: 420px;
-    padding: 40px 30px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #0a0a0e; /* لون صلب وداكن جداً */
     border-radius: 40px;
-    text-align: center;
-    box-shadow: 0 0 50px rgba(139, 92, 246, 0.2),
-                inset 0 0 30px rgba(217, 70, 239, 0.1);
-    animation: floatOrb 6s ease-in-out infinite;
+    padding: 4rem 6rem; /* حواف متناسقة ولا تأخذ كامل الشاشة */
+    z-index: 10;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
 }
 
-@keyframes floatOrb {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-10px) rotate(0.5deg); }
+/* الضوء الدوار: أكثر سماكة (inset -6px) وانتشار أكبر للألوان */
+.clock-container::after {
+    content: '';
+    position: absolute;
+    inset: -6px; /* تكبير قطر الضوء وسمكه */
+    border-radius: 46px; 
+    /* نسبة الألوان زادت لتجعل الضوء أعرض */
+    background: conic-gradient(from var(--angle), transparent 25%, #38bdf8, #818cf8, #c084fc, transparent 75%);
+    z-index: -1;
+    animation: sweep 4s linear infinite;
+    filter: blur(5px); /* توهج ناعم للضوء */
 }
 
-/* قسم التاريخ بتصميم يشبه شاشات العرض السحرية */
-.date-display {
-    font-size: 0.9rem;
-    color: #e879f9;
-    letter-spacing: 4px;
-    margin-bottom: 20px;
-    text-shadow: 0 0 10px rgba(232, 121, 249, 0.8);
+/* طبقة ضوء إضافية حادة أسفل التوهج */
+.clock-container::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 42px;
+    background: conic-gradient(from var(--angle), transparent 25%, #38bdf8, #818cf8, #c084fc, transparent 75%);
+    z-index: -1;
+    animation: sweep 4s linear infinite;
 }
 
-/* شاشة الوقت الأساسية */
-.time-display {
-    background: rgba(10, 5, 20, 0.8);
-    border: 1px solid rgba(217, 70, 239, 0.4);
-    border-radius: 20px;
-    padding: 25px 15px;
-    margin-bottom: 20px;
-    font-size: 2.8rem;
-    font-weight: bold;
-    color: #f3e8ff;
-    text-shadow: 0 0 20px rgba(243, 232, 255, 0.6);
-    box-shadow: inset 0 0 20px rgba(168, 85, 247, 0.3);
-    letter-spacing: 2px;
+@keyframes sweep {
+    to { --angle: 360deg; }
 }
 
-/* وسم او عنوان الساعة */
-.clock-tag {
-    font-size: 0.75rem;
-    color: #a78bfa;
-    letter-spacing: 3px;
+/* اليوم: بارز وموجود في الأعلى */
+.day-display {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #818cf8;
+    letter-spacing: 0.4em;
     text-transform: uppercase;
+    margin-bottom: 0.5rem;
+}
+
+/* التاريخ: أنيق وأصغر قليلاً من اليوم */
+.date-display {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.6);
+    letter-spacing: 0.3em;
+    margin-bottom: 2rem;
+}
+
+/* الوقت: عملاق، مهيمن، ويأخذ المساحة المناسبة */
+.time-display {
+    font-family: 'Space Mono', monospace;
+    font-size: 8rem; /* تكبير الحجم بشكل ضخم */
+    font-weight: 700;
+    line-height: 1;
+    background: linear-gradient(180deg, #ffffff 0%, #a5b4fc 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 10px 20px rgba(129, 140, 248, 0.2));
+    margin-bottom: 2.5rem;
+    letter-spacing: -0.05em;
+}
+
+/* الوسم السفلي */
+.clock-tag {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #38bdf8;
+    letter-spacing: 0.6em;
+    text-transform: uppercase;
+    position: relative;
+    padding-top: 2rem;
+}
+
+/* خط الزينة البسيط فوق العنوان */
+.clock-tag::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #38bdf8, transparent);
+    border-radius: 50%;
 }
