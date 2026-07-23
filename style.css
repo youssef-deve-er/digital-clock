@@ -1,0 +1,52 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f6f9; /* لون الخلفية الفاتح خارج الساعة */
+}
+
+.clock-container {
+    background-color: #0b132b; /* لون الساعة الداكن الفخم */
+    width: 400px;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+
+/* محتوى الساعة */
+.clock-content {
+    padding: 50px 20px;
+    text-align: center;
+    color: #3b82f6; /* اللون الأزرق المضيء */
+}
+
+.date {
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    color: #1d4ed8;
+}
+
+.time {
+    font-size: 5rem;
+    font-weight: bold;
+    line-height: 1;
+    margin-bottom: 20px;
+    text-shadow: 0 0 15px rgba(59, 130, 246, 0.4); /* تأثير الإضاءة الخفيفة */
+}
+
+.label {
+    font-size: 1.1rem;
+    color: #60a5fa;
+    letter-spacing: 1px;
+}
